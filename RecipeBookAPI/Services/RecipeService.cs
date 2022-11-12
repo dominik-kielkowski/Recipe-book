@@ -15,22 +15,22 @@ namespace RecipeBookAPI.Services
 
         public IEnumerable<Recipe> GetRecipes()
         {
-            var occupationList = _db.Recipes.ToList();
+            var occupationList = _db.Recipes.Include(r => r.Ingredients).ToList();
 
             return occupationList;
         }
 
-        public void AddRecipe(Recipe CreateRecipe)
+        public void AddRecipe(Recipe createRecipe)
         {
             var recipe = new Recipe
             {
-                Name = CreateRecipe.Name,
-                Description = CreateRecipe.Description,
-                imagePath = CreateRecipe.imagePath,
-                Ingredients = CreateRecipe.Ingredients
+                Name = createRecipe.Name,
+                Description = createRecipe.Description,
+                imagePath = createRecipe.imagePath,
+                Ingredients = createRecipe.Ingredients
             };
 
-            _db.Add(recipe);
+            _db.Recipes.Add(recipe);
             _db.SaveChanges();
         }
 

@@ -25,9 +25,9 @@ namespace RecipeBookAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddRecipe(Recipe CreateRecipe)
+        public ActionResult AddRecipe(Recipe createRecipe)
         {
-            _service.AddRecipe(CreateRecipe);
+            _service.AddRecipe(createRecipe);
             return Ok();
         }
 

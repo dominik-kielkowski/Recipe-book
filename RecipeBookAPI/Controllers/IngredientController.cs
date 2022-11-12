@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RecipeBookAPI.Database.Models;
 using RecipeBookAPI.Services;
 
 namespace RecipeBookAPI.Controllers
@@ -19,6 +20,30 @@ namespace RecipeBookAPI.Controllers
         {
             var ingredients = _service.GetIngredients();
             return Ok(ingredients);
+        }
+
+        [HttpPost]
+        public ActionResult AddIngredient(Ingredient createIngredient)
+        {
+            _service.AddIngredient(createIngredient);
+
+            return Ok();
+        }
+
+        [HttpPut]
+        public ActionResult UpdateIngredient(Ingredient newIngredient, int id)
+        {
+            _service.UpdateIngredient(newIngredient, id);
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        public ActionResult DeleteIngredient(int id)
+        {
+            _service.DeleteIngredient(id);
+
+            return Ok();
         }
     }
 }
