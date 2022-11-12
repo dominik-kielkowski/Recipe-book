@@ -17,7 +17,16 @@ namespace RecipeBookAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Recipe>> getRecepis()
+        [Route("{id}")]
+        public ActionResult<Recipe> getRecipe(int id)
+        {
+            var reciepe = _service.GetRecipe(id);
+
+            return Ok(reciepe);
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<Recipe>> getRecipes()
         {
             var recepis = _service.GetRecipes();
 
@@ -25,9 +34,9 @@ namespace RecipeBookAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddRecipe(Recipe CreateRecipe)
+        public ActionResult AddRecipe(Recipe createRecipe)
         {
-            _service.AddRecipe(CreateRecipe);
+            _service.AddRecipe(createRecipe);
             return Ok();
         }
 

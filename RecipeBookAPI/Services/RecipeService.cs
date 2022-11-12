@@ -13,24 +13,31 @@ namespace RecipeBookAPI.Services
             _db = db;
         }
 
-        public IEnumerable<Recipe> GetRecipes()
+        public Recipe GetRecipe(int id)
         {
-            var occupationList = _db.Recipes.ToList();
+            var recipe = _db.Recipes.FirstOrDefault(r => r.Id == id);
 
-            return occupationList;
+            return recipe;
         }
 
-        public void AddRecipe(Recipe CreateRecipe)
+        public IEnumerable<Recipe> GetRecipes()
+        {
+            var recipeList = _db.Recipes.Include(r => r.Ingredients).ToList();
+
+            return recipeList;
+        }
+
+        public void AddRecipe(Recipe createRecipe)
         {
             var recipe = new Recipe
             {
-                Name = CreateRecipe.Name,
-                Description = CreateRecipe.Description,
-                imagePath = CreateRecipe.imagePath,
-                Ingredients = CreateRecipe.Ingredients
+                Name = createRecipe.Name,
+                Description = createRecipe.Description,
+                imagePath = createRecipe.imagePath,
+                Ingredients = createRecipe.Ingredients
             };
 
-            _db.Add(recipe);
+            _db.Recipes.Add(recipe);
             _db.SaveChanges();
         }
 

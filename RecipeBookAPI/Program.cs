@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RecipeBookAPI.Database.Data;
 using RecipeBookAPI.Services;
+using System.Text.Json.Serialization;
 
 var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -29,8 +30,13 @@ builder.Services.AddCors(options =>
         });
 });
 
+
+// Add controllers services
 builder.Services.AddScoped<IRecipeService,RecipeService>();
 builder.Services.AddScoped<IIngredientService, IngredientService>();
+
+// Ignore cycles
+builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 var app = builder.Build();
 
