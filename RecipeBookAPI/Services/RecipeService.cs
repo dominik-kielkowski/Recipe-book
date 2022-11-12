@@ -18,7 +18,6 @@ namespace RecipeBookAPI.Services
             var occupationList = _db.Recipes.ToList();
 
             return occupationList;
-            return null;
         }
 
         public void AddRecipe(Recipe CreateRecipe)
